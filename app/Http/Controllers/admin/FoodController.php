@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Food;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 
@@ -25,14 +27,21 @@ class FoodController extends Controller
     public function createFood(Request $request)
     {
 
+        $filename = '';
+        if ($request->file('thumbnail')) {
+            $file = $request->file('thumbnail');
+            $filename = time() . '-' . $file->getClientOriginalName();
+            $path = "thumbnails/" . $filename;
+            $request->file('thumbnail')->storeAs("public/thumbnails", $filename);
+        }
+
+
         $food = new Food;
         $food->name = $request->name;
         $food->category = $request->category;
         $food->price = $request->price;
         $food->description = $request->description;
-        $food->gender = $request->gender;
-
-        
+        $food->thumbnail = $filename;
         $food->save();
 
         if ($food) {
@@ -54,17 +63,30 @@ class FoodController extends Controller
     {
 
         $food = Food::find($id);
-        $food->first_name = $request->first_name;
-        $food->last_name = $request->last_name;
-        $food->email = $request->email;
-        $food->mobile = $request->mobile;
-        $food->gender = $request->gender;
-        $food->dob = $request->dob;
-        $food->address = $request->address;
-        $food->city = $request->city;
-        $food->company = $request->company;
-        $food->job_title = $request->job_title;
+
+        if (!is_null($food)) {
+            $food->name = $request->name;
+            $food->category = $request->category;
+            $food->price = $request->price;
+            $food->description = $request->description;
+            $filename = '';
+
+            if ($request->file('thumbnail')) {
+
+                Storage::delete('public/thumbnails/' . $food->thumbnail);
+
+                $file = $request->file('thumbnail');
+                $filename = time() . '-' . $file->getClientOriginalName();
+                $path = "thumbnails/" . $filename;
+                $request->file('thumbnail')->storeAs("public/thumbnails", $filename);
+
+                $food->thumbnail = $filename;
+            }
+        }
+
         $food->save();
+
+
 
         if ($food) {
             session()->flash('food-update-success', 'Food updated successfully');
@@ -78,7 +100,10 @@ class FoodController extends Controller
     public function deleteFood($id)
     {
         $food = Food::find($id);
-        if (!is_null($food)) $food->delete();
+        if (!is_null($food)) {
+            Storage::delete('public/thumbnails/' . $food->thumbnail);
+            $food->delete();
+        }
 
         session()->flash('food-delete-success', 'Food deleted successfully');
         return redirect('/superadmin/foods');

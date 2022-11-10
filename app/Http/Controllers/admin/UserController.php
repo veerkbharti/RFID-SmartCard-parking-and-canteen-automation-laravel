@@ -11,7 +11,7 @@ class UserController extends Controller
     public function login()
     {
         if (session()->has('isUserLoggedIn') && session()->get('isUserLoggedIn'))
-        return redirect('/superadmin');
+            return redirect('/superadmin');
         else
             return view('admin.login');
     }
@@ -31,8 +31,16 @@ class UserController extends Controller
             $user = $user[0];
             if ($user->role === 'admin') {
                 if (password_verify($pass, $user->password)) {
-                    session(['isUserLoggedIn' => true, 'user_id' => $user->user_id]);
+                    session(['isUserLoggedIn' => true, 'user_id' => $user->user_id, 'user_role' => $user->role]);
                     return redirect('/superadmin');
+                } else {
+                    session()->flash('error', 'Incorrect email or password !!');
+                    return redirect()->back();
+                }
+            } elseif ($user->role === 'handler') {
+                if (password_verify($pass, $user->password)) {
+                    session(['isUserLoggedIn' => true, 'user_id' => $user->user_id, 'user_role' => $user->role]);
+                    return redirect('/superadmin/vehicle-entry');
                 } else {
                     session()->flash('error', 'Incorrect email or password !!');
                     return redirect()->back();

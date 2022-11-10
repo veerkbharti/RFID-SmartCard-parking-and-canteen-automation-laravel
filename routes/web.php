@@ -11,6 +11,7 @@ use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\EmployeeController;
 use App\Http\Controllers\Admin\FoodController;
 use App\Http\Controllers\Admin\HandlerController;
+use App\Http\Controllers\Admin\SlotController;
 use App\Http\Controllers\admin\UserController;
 use App\Models\Post;
 
@@ -71,9 +72,18 @@ Route::group(['prefix' => '/superadmin/foods'], function () {
     Route::get('delete/{id}', [FoodController::class, 'deleteFood'])->name('food.delete');
 });
 
+Route::group(['prefix' => '/superadmin/slots'], function () {
+    Route::get('/', [SlotController::class, 'slots']);
+    Route::post('update/{id}', [SlotController::class, 'update'])->name('slot.update');
+    Route::post('update-slot/{id}', [SlotController::class, 'updateSlot'])->name('slot.updateSlot');
+});
+
+
+Route::get('/superadmin/vehicle-entry', [SlotController::class, 'vechileEntry']);
+
 Route::group(['prefix' => '/superadmin/user'], function () {
     Route::get('password/change', [UserController::class, 'changePassword'])->name('password.change');
-    Route::post('password/update', [UserController::class, 'updatePassword'])->name('password.update');
+    Route::put('password/update', [UserController::class, 'updatePassword'])->name('password.update');
     Route::get('password/forgot', [UserController::class, 'forgotPassword'])->name('password.forgot');
     Route::get('logout', [UserController::class, 'logout'])->name('user.logout');
 });

@@ -16,6 +16,10 @@ class DatabaseSeeder extends Seeder
     {
         \App\Models\User::factory(1)->create();
 
+        \App\Models\Slot::factory(1)->create([
+            'no_of_slots' => 0,
+        ]);
+
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
