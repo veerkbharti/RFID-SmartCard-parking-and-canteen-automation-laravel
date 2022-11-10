@@ -35,43 +35,5 @@
         <img src="{{ url('/frontend/assets/images/preloader.gif') }}" alt="preloader">
     </div>
     <header class="sticky-top">
-        <nav class="navbar navbar-expand-lg sticky-top navbar-dark" style="background-color: #b80479">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="{{ url('/') }}">PngCity</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{{ url('/') }}">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url('/about') }}">About</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                Category
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                @foreach ($categories as $category)
-                                @if($category->cat_status == 1)
-                                    <li><a class="dropdown-item"
-                                            href="{{ url('/search?clipart=' . $category->cat_id) }}">{{ $category->cat_name }}</a>
-                                    </li>
-                                @endif
-                                @endforeach
-                            </ul>
-                        </li>
-                    </ul>
-                    <form action="{{ url('/search?clipart=') }}  @php isset($_GET['clipart']) ? $_GET['clipart'] : ''; @endphp " class="d-flex w-100" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit">Search</button>
-                    </form>
-                </div>
-            </div>
-        </nav>
+        
     </header>

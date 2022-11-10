@@ -3,7 +3,7 @@
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
       <img src="{{url('admin_assets/dist/img/AdminLTELogo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">AllPNGFree</span>
+      <span class="brand-text font-weight-light">SPCA</span>
     </a>
 
     <!-- Sidebar -->
@@ -22,30 +22,29 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{url('/superadmin/post/add')}}" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
+            <a href="{{url('/superadmin/employees')}}" class="nav-link">
+              <i class="nav-icon fas fa-users"></i>
               <p>
-                Add Post
+                Manage Employees
               </p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{url('/superadmin/post')}}" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
+            <a href="{{url('/superadmin/handlers')}}" class="nav-link">
+              <i class="nav-icon fas fa-users"></i>
               <p>
-                Manage Posts
+                Manage Handlers
               </p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{url('/superadmin/category')}}" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
+            <a href="{{url('/superadmin/foods')}}" class="nav-link">
+              <i class="nav-icon fas fa-hamburger"></i>
               <p>
-                Manage Category
+                Manage Foods
               </p>
             </a>
           </li>
-
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

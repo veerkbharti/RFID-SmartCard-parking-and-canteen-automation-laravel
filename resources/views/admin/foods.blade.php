@@ -7,10 +7,10 @@
         <!-- Content Header (Page header) -->
         <x-content-header title="Posts" />
         <!-- /.content-header -->
-        @if (session('post-delete-success'))
-            <x-alert-message type="success" message="{{ session('post-delete-success') }}" />
+        @if (session('food-delete-success'))
+            <x-alert-message type="success" message="{{ session('food-delete-success') }}" />
         @endif
-        
+
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
@@ -19,7 +19,13 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">Total posts</h3>
+                                <h3 class="card-title">Total foods</h3>
+                                <div class="card-tools">
+                                    <a type="button" class="btn btn-outline btn-outline-primary btn-sm"
+                                        data-widget="collapse" data-toggle="tooltip" title="Add Event" href="./foods/add">
+                                        <i class="fa fa-plus"></i> Add Food
+                                    </a>
+                                </div>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -28,8 +34,10 @@
                                         <tr>
                                             <th>#</th>
                                             <th>Thumb</th>
-                                            <th>Post title</th>
+                                            <th>Name</th>
                                             <th>Category</th>
+                                            <th>Description</th>
+                                            <th>Price</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
@@ -37,35 +45,26 @@
                                         @php
                                             $count = 0;
                                         @endphp
-                                        @foreach ($posts as $post)
+                                        @foreach ($foods as $food)
                                             <tr>
                                                 <td>{{ ++$count }}</td>
-                                                <td> <img src="{{ asset('storage/thumbnails/' . $post->thumbnail) }}"
-                                                        alt="{{ $post->post_title }}" class="img-rounded"
-                                                        style="width:60px;"></td>
-                                                <td>{{ $post->post_title }}</td>
-                                                <td>{{ $post->post_category }}</td>
-                                                {{-- <td>
-                                                    <a href="{{route('')}}">
-                                                        <label class='switch cat-status-btn mt-2'
-                                                            data-status={{ $post->post_status }}
-                                                            data-id={{ $post->post_id }}>
-                                                            <input type='checkbox'
-                                                                {{ $post->post_status == 1 ? 'checked' : '' }}><span
-                                                                class='slider round'></span>
-                                                        </label>
-                                                    </a>
-                                                </td> --}}
+                                                <td><img src="{{ asset('storage/thumbnails/' . $food->thumbnail) }}"
+                                                        alt="{{ $food->name }}" class="img-rounded" style="width:60px;">
+                                                </td>
+                                                <td>{{ $food->name }}</td>
+                                                <td>{{ $food->category }}</td>
+                                                <td>{{ $food->description }}</td>
+                                                <td>{{ $food->price }}</td>
                                                 <td>
                                                     <nav class="nav  ">
                                                         <a class="nav-link text-primary"
-                                                            href="{{ route('post.edit', ['id' => $post->post_id]) }}"><i
+                                                            href="{{ route('food.edit', ['id' => $food->id]) }}"><i
                                                                 class="fa fa-edit" aria-hidden="true"></i></a>
                                                         {{-- <a class="nav-link text-danger" href="#"><i
-                                                                class="fa fa-trash delete-post"
-                                                                data-postid="{{ $post->post_id }}"></i></a> --}}
+                                                                class="fa fa-trash delete-food"
+                                                                data-foodid="{{ $food->food_id }}"></i></a> --}}
                                                         <a class="nav-link text-danger"
-                                                            href="{{ route('post.delete', ['id' => $post->post_id]) }}"><i
+                                                            href="{{ route('food.delete', ['id' => $food->id]) }}"><i
                                                                 class="fa fa-trash" aria-hidden="true"></i></a>
                                                     </nav>
                                                 </td>
